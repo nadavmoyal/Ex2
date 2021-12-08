@@ -20,8 +20,8 @@ public class MyEdge implements EdgeData{
         this.src = src;
         this.weight = weight;
         this.dest = dest;
-//        this.tag = ed.getTag();
-//        this.info = ed.getInfo();
+        this.tag = -1;
+        this.info = "BLACK";
 
     }
     @Override

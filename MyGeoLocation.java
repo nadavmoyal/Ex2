@@ -11,11 +11,11 @@ public class MyGeoLocation implements GeoLocation{
         this.z=z;
     }
 
-//    public MyGeoLocation(GeoLocation g) {
-//        this.x=g.x();
-//        this.y=g.y();
-//        this.z=g.z();
-//    }
+    public MyGeoLocation(GeoLocation g) {
+        this.x=g.x();
+        this.y=g.y();
+        this.z=g.z();
+    }
 
     @Override
     public double x() {
@@ -34,7 +34,11 @@ public class MyGeoLocation implements GeoLocation{
 
     @Override
     public double distance(GeoLocation g) {
-        double dist = Math.sqrt(Math.pow(this.x-g.x(),2) +Math.pow(this.x-g.y(),2) + Math.pow(this.z-g.z(),2) );
+        double X= Math.pow(this.x-g.x(),2);
+        double Y = Math.pow(this.y-g.y(),2);
+        double Z = Math.pow(this.z-g.z(),2);
+        double dist = Math.sqrt(X+Y+Z);
         return dist;
+
     }
 }
