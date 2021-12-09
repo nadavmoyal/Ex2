@@ -72,25 +72,21 @@ This project is an assignment in an object-oriented course at Ariel University. 
 |    getMC()                 | Returns the Mode Count - for testing changes in the graph.|
 
 
+## class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms:
+##### This class represents a Directed (positive) Weighted Graph Theory Algorithms.
+ 
+|          Methods                | Details                             | 
+| --------------------------------|:--------------------------------------:| 
+| init(DirectedWeightedGraph g)   |Inits the graph on which this set of algorithms operates on.| 
+| DirectedWeightedGraph getGraph() |Returns the underlying graph of which this class works.|
+| copy()                          | Computes a deep copy of this weighted graph.| 
+| isConnected()                  |Returns true if and only if (iff) there is a valid path from each node to each other node.| 
+|  shortestPathDist(int src, int dest)| Computes the length of the shortest path between src to dest.| 
+|  shortestPath(int src, int dest)|Computes the the shortest path between src to dest - as an ordered List of nodes|   
+|  center()          |Finds the NodeData which minimizes the max distance to all the other nodes.|
+| tsp(List<NodeData> cities) |Computes a list of consecutive nodes which go over all the nodes in cities.| 
+| save(String file) |Saves this weighted (directed) graph to the given file name - in JSON format| 
+|load(String file) | This method loads a graph to this graph algorithm.|   
 
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+   
