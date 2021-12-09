@@ -1,4 +1,3 @@
-![ArielLogo](docs/ArielLogo.png)
 # Ex2
 ### Object Oriented Programming Task 2 - Design and implementation of directed and weighted graphs:
 ####  This task is dedicated to the design and implementation of data structures and algorithms on graphs (directed and weighted).
