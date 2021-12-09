@@ -16,7 +16,7 @@ This project is an assignment in an object-oriented course at Ariel University. 
 # Description of the classes:
 
 ## class MyGeoLocation implements GeoLocation:
-##### This interface represents a geo location <x,y,z>, (aka Point3D data).
+##### This class represents a geo location <x,y,z>, (aka Point3D data).
 
 |          Methods                | Details                             | 
 | --------------------------------|:--------------------------------------:| 
@@ -25,7 +25,7 @@ This project is an assignment in an object-oriented course at Ariel University. 
 | MyGeoLocation(GeoLocation g)    | A constractor of a new GeoLocation       |   
 
 ## class MyNode implements NodeData:
-##### This interface represents the set of operations applicable on a node (vertex) in a (directional) weighted graph.
+##### This class represents the set of operations applicable on a node (vertex) in a (directional) weighted graph.
 
 |          Methods                | Details                             | 
 | --------------------------------|:--------------------------------------:| 
@@ -41,19 +41,35 @@ This project is an assignment in an object-oriented course at Ariel University. 
 
 
 ## class MyEdge implements EdgeData:
-##### This interface represents the set of operations applicable on a directional edge (src,dest) in a (directional) weighted graph.
+##### This class represents the set of operations applicable on a directional edge (src,dest) in a (directional) weighted graph.
                                  
 |          Methods                | Details                             | 
 | --------------------------------|:--------------------------------------:| 
-| getKey()        | Returns the key (id) associated with this node.  | 
-| getLocation()                 | Returns the location of this node, if none return null.| 
-| setLocation(GeoLocation p)    | Allows changing this node's location.      |  
-| getWeight()                 | Returns the weight associated with this node.| 
-| SetWeight(double w)           |Allows changing this node's weight.      | 
-| getInfo()                      |  Returns the remark (meta data) associated with this node. | 
-| setInfo(String s)               | Allows changing the remark (meta data) associated with this node.| 
-| getTag()                       | Returns the tag associated with this node.       |   
-|   setTag(int t)                 |  Allows setting the "tag" value for temporal marking an node-common practice for marking by algorithms.|
+| int getSrc()               |The id of the source node of this edge. | 
+|  getDest()                 | The id of the destination node of this edge |
+| getWeight()                 | return the weight of this edge (positive value).| 
+| getInfo()                      | Returns the remark (meta data) associated with this edge.| 
+| setInfo(String s)               | Allows changing the remark (meta data) associated with this edge| 
+| getTag()                       | Returns the tag associated with this edge .       |   
+|   setTag(int t)                 |  Allows setting the "tag" value for temporal marking an edge -common practice for marking by algorithms.|
+
+## class  DW_Graph implements DirectedWeightedGraph:
+##### This class represents a Directional Weighted Graph.
+ 
+|          Methods                | Details                             | 
+| --------------------------------|:--------------------------------------:| 
+|getNode(int key)             |Returns the node_data by the node_id | 
+|  getEdge(int src, int dest)    | returns the data of the edge (src,dest), null if none,this method run in O(1) time.|
+| addNode(NodeData n)            | Adds a new node to the graph with the given node_data,this method run in O(1) time.| 
+| connect(int src, int dest, double w)|Connects an edge with weight w between node src to node dest, this method run in O(1) time.| 
+| nodeIter()                     | returns an Iterator for the collection representing all the nodes in the graph.| 
+|  edgeIter()                     | returns an Iterator for all the edges in this graph.                          |   
+|  edgeIter(int node_id)          | returns an Iterator for edges getting out of the given node.|
+| removeNode(int key)             | Deletes the node (with the given ID) from the graph-and removes all edges which starts or ends at this node.| 
+| removeEdge(int src, int dest)   |Deletes the edge from the graph, this method run in O(1) time.| 
+| nodeSize()                       | Returns the number of vertices (nodes) in the graph,this method run in O(1) time.|   
+|   edgeSize()                 | Returns the number of edges (assume directional graph),this method run in O(1) time.|
+|    getMC()                 | Returns the Mode Count - for testing changes in the graph.|
 
 
 
