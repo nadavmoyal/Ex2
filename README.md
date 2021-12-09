@@ -2,12 +2,15 @@
 
 
 # Ex2
->Made by Yehonathan Barel and Nadav Moyal.
->GitHub pages:
+>Made by Yehonatan Barel and Nadav Moyal.
+>
+>GitHub pages: 
+>
 >https://github.com/nadavmoyal
->https://github.com/yehonathanbarel    // need to check
+>
+>https://github.com/yehonatanbarel    
 
-### Object Oriented Programming Task 2 - Design and implementation of directed and weighted graphs:
+## Introduction:
 ####  This task is dedicated to the design and implementation of data structures and algorithms on graphs (directed and weighted).
 
 #### Interface of a weighted directed graph
