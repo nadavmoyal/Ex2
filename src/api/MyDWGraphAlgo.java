@@ -204,9 +204,9 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
 
     @Override
     public NodeData center() {
-        if(!isConnected()){
-            return null;
-        }
+//        if(!isConnected()){
+//            return null;
+//        }
         Iterator<EdgeData> NeiIterr = this.graph.edgeIter(3);
         while (NeiIterr.hasNext()) {
             EdgeData CurrEdge = NeiIterr.next();
