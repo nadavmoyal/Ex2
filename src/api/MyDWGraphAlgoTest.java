@@ -107,9 +107,9 @@ class MyDWGraphAlgoTest {
     void shortestPath() {
         RemoveAll();
         Default();
-        assertEquals(1,this.graphAlgo.shortestPath(1,2).size());
-//        assertEquals(1,this.graphAlgo.shortestPath(1,2).get(0).getKey());
-//        assertEquals(2,this.graphAlgo.shortestPath(1,2).get(1).getKey());
+        assertEquals(2,this.graphAlgo.shortestPath(1,4).size());
+        assertEquals(1,this.graphAlgo.shortestPath(1,2).get(0).getKey());
+        assertEquals(2,this.graphAlgo.shortestPath(1,2).get(1).getKey());
 //        assertEquals(3,this.graphAlgo.shortestPath(1,2).get(2).getKey());
 //        assertEquals(4,this.graphAlgo.shortestPath(1,3).get(3).getKey());
 

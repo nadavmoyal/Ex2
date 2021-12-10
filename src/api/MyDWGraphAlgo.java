@@ -114,42 +114,90 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
 //    }
 
     private ArrayList<NodeData> dijkstraList(NodeData src, NodeData dest) {
-//        ArrayList<NodeData> printNodePath = new ArrayList<NodeData>();99999999999999999999999
-//        printNodePath.add(this.graph.Nodes.get(src));999999999999999999999999999999999
-        // here we use a PriorityQueue that gets a NodeData and compare them by the node weight
-        //***************************************** NEW *********************************
-        double shortest = Integer.MAX_VALUE;
-        PriorityQueue<NodeData> priorityOnWeight = new PriorityQueue<NodeData>(this.graph.nodeSize(), (Comparator<NodeData>) (node_1, node_2) -> Double.compare(node_1.getWeight(), node_2.getWeight()));
-        src.setWeight(0);
-        priorityOnWeight.add(src);
-        ArrayList<NodeData> prev = new ArrayList<NodeData>();
-        prev.add(src);
-        while (priorityOnWeight.size() != 0) {
-            NodeData tempNode = priorityOnWeight.poll();
-            for (Iterator<EdgeData> it = this.graph.edgeIter(tempNode.getKey()); it.hasNext(); ) {
-                EdgeData edge = it.next();
-                NodeData node = this.graph.getNode(edge.getDest());
-                if (node.getInfo().equals("notVisited")) {
-                    if (node.getWeight() > tempNode.getWeight() + edge.getWeight()) {
-                        prev.add(node);
-                        node.setWeight(Math.min(node.getWeight(), tempNode.getWeight() + edge.getWeight()));
-                        node.setTag(tempNode.getKey());
+        HashMap<NodeData,NodeData> Prev = new HashMap<>();
+        HashMap<NodeData, Double> DistMap = new HashMap<>();
+        Queue<NodeData> PQ = new PriorityQueue<>(Comparator.comparingDouble(DistMap::get));
+        boolean IsDest = false;
+        NodeData NeighborNode;
+        NodeData Current;
+        DistMap.put(src, 0.0);
+        PQ.add(src);
+        while ((!IsDest) && (!PQ.isEmpty())) {
+            Current = PQ.poll();
+            if (Current.getKey() == dest.getKey()) {
+                IsDest = true;
+            }
+            Iterator<EdgeData> NeiIter = this.graph.edgeIter(Current.getKey());
+            while (NeiIter.hasNext()) {
+                EdgeData CurrEdge = NeiIter.next();
+                NeighborNode = this.graph.getNode(CurrEdge.getDest());
+                if (NeighborNode.getTag() == -1) {
+                    DistMap.put(NeighborNode, DistMap.get(Current) + CurrEdge.getWeight());
+                    PQ.add(NeighborNode);
+                    Prev.put(NeighborNode, Current);
+                    NeighborNode.setTag(1);
+                } else {
+                    double t = Math.min(DistMap.get(NeighborNode), DistMap.get(Current) + CurrEdge.getWeight());
+                    if (t != DistMap.get(NeighborNode)) {
+                        DistMap.put(NeighborNode, t);
+                        PQ.add(NeighborNode);
+                        Prev.put(NeighborNode, Current);
                     }
-                    priorityOnWeight.add(node);
                 }
             }
-            System.out.println("this is the path : ");
-            for (int i = 0; i < prev.size(); i++) {
-                System.out.print(prev.get(i).getKey());
-            }
-            System.out.println("");
-
-            tempNode.setInfo("visited");
-            if (tempNode.getKey() == dest.getKey()) {
-                return prev;
-            }
         }
-        return prev;
+        if (!IsDest) {
+            return new ArrayList<>();
+        }
+        ArrayList <NodeData> FinalPath = new ArrayList<>();
+        int temp= dest.getKey();
+        FinalPath.add(dest);
+        dest=Prev.get(dest);
+            while ((dest != null ) && (dest.getKey() != temp) ) {
+                FinalPath.add(0, dest);
+                dest = Prev.get(dest.getKey());
+            }
+
+        return FinalPath;
+
+    }
+//
+//        ArrayList<NodeData> printNodePath = new ArrayList<NodeData>();99999999999999999999999
+//        printNodePath.add(this.graph.Nodes.get(src));999999999999999999999999999999999
+//         here we use a PriorityQueue that gets a NodeData and compare them by the node weight
+//        ***************************************** NEW *********************************
+//        double shortest = Integer.MAX_VALUE;
+//        PriorityQueue<NodeData> priorityOnWeight = new PriorityQueue<NodeData>(this.graph.nodeSize(), (Comparator<NodeData>) (node_1, node_2) -> Double.compare(node_1.getWeight(), node_2.getWeight()));
+//        src.setWeight(0);
+//        priorityOnWeight.add(src);
+//        ArrayList<NodeData> prev = new ArrayList<NodeData>();
+//        prev.add(src);
+//        while (priorityOnWeight.size() != 0) {
+//            NodeData tempNode = priorityOnWeight.poll();
+//            for (Iterator<EdgeData> it = this.graph.edgeIter(tempNode.getKey()); it.hasNext(); ) {
+//                EdgeData edge = it.next();
+//                NodeData node = this.graph.getNode(edge.getDest());
+//                if (node.getInfo().equals("notVisited")) {
+//                    if (node.getWeight() > tempNode.getWeight() + edge.getWeight()) {
+//                        prev.add(node);
+//                        node.setWeight(Math.min(node.getWeight(), tempNode.getWeight() + edge.getWeight()));
+//                        node.setTag(tempNode.getKey());
+//                    }
+//                    priorityOnWeight.add(node);
+//                }
+//            }
+//            System.out.println("this is the path : ");
+//            for (int i = 0; i < prev.size(); i++) {
+//                System.out.print(prev.get(i).getKey());
+//            }
+//            System.out.println("");
+//
+//            tempNode.setInfo("visited");
+//            if (tempNode.getKey() == dest.getKey()) {
+//                return prev;
+//            }
+//        }
+//        return prev;
         //===================================================================================================================
 //        PriorityQueue<NodeData> priorityOnWeight = new PriorityQueue<NodeData>(this.graph.nodeSize(), (Comparator<NodeData>) (node_1, node_2) -> Double.compare(node_1.getWeight(), node_2.getWeight()));
 //        priorityOnWeight.add(src);
@@ -179,27 +227,43 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
 //        }
 //        return prev;
         //==============================================================================
-    }
+//    }
 
 
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
-        resetWeight();
-        resetTag();
-        resetInfo();
-        if (src == dest || dijkstraList(this.graph.getNode(src), this.graph.getNode(dest)).size() == 0) {
-            resetWeight();
-            resetTag();
-            resetInfo();
-            return new ArrayList<NodeData>();
+        NodeData Source = this.graph.getNode(src);
+        NodeData Destination = this.graph.getNode(dest);
+       if(Source==null) return null;
+       if(Destination==null) return null;
+        if (src == dest) {
+            ArrayList <NodeData> OneNodeList =new ArrayList<NodeData>();
+            OneNodeList.add(Source);
+            return OneNodeList;
         }
-        ArrayList<NodeData> path = dijkstraList(this.graph.getNode(src), this.graph.getNode(dest));
-        resetWeight();
         resetTag();
-        resetInfo();
-
-        return path;
+        ArrayList <NodeData> Ans =new ArrayList<NodeData>();
+        Ans = dijkstraList(Source,Destination);
+        return Ans;
     }
+
+
+//        resetWeight();
+//        resetTag();
+//        resetInfo();
+//        if (src == dest || dijkstraList(this.graph.getNode(src), this.graph.getNode(dest)).size() == 0) {
+//            resetWeight();
+//            resetTag();
+//            resetInfo();
+//            return new ArrayList<NodeData>();
+//        }
+//        ArrayList<NodeData> path = dijkstraList(this.graph.getNode(src), this.graph.getNode(dest));
+//        resetWeight();
+//        resetTag();
+//        resetInfo();
+//
+//        return path;
+//    }
 
 
     @Override
