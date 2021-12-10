@@ -12,21 +12,21 @@ class DW_GraphTest {
     NodeData n1,n2,n3,n4;
 
 
-       public  void Default() {
-           this.MyGraph = new DW_Graph();
-           this.n1 = new MyNode(new MyGeoLocation(0, 0, 0), 1, 5, -1, "NADAV");
-           this.n2 = new MyNode(new MyGeoLocation(1, 1, 0), 2, 3, -1, "MOYAL");
-           this.n3 = new MyNode(new MyGeoLocation(3, 3, 0), 3, 2, -1, "YEHONATHAN");
-           this.n4 = new MyNode(new MyGeoLocation(5, 7, 0), 4, 6, -1, "BAREL");
-           this.MyGraph.addNode(n1);
-           this.MyGraph.addNode(n2);
-           this.MyGraph.addNode(n3);
-           this.MyGraph.addNode(n4);
-           this.MyGraph.connect(2,3,4);
-           this.MyGraph.connect(1,3,11);
-           this.MyGraph.connect(1,4,23);
+    public  void Default() {
+        this.MyGraph = new DW_Graph();
+        this.n1 = new MyNode(new MyGeoLocation(0, 0, 0), 1, 5, -1, "NADAV");
+        this.n2 = new MyNode(new MyGeoLocation(1, 1, 0), 2, 3, -1, "MOYAL");
+        this.n3 = new MyNode(new MyGeoLocation(3, 3, 0), 3, 2, -1, "YEHONATHAN");
+        this.n4 = new MyNode(new MyGeoLocation(5, 7, 0), 4, 6, -1, "BAREL");
+        this.MyGraph.addNode(n1);
+        this.MyGraph.addNode(n2);
+        this.MyGraph.addNode(n3);
+        this.MyGraph.addNode(n4);
+        this.MyGraph.connect(2,3,4);
+        this.MyGraph.connect(1,3,11);
+        this.MyGraph.connect(1,4,23);
 
-       }
+    }
 
 
     @Test
@@ -135,6 +135,7 @@ class DW_GraphTest {
     void testEdgeIter() {
         Default();
         EdgeData n;
+
         NodeData node_e = new MyNode(new MyGeoLocation(0, 0, 0), 1, 5, -1, "NADAV");
 
         assertEquals(-1,MyGraph.getEdge(1,3).getTag());
