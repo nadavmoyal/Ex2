@@ -1,43 +1,37 @@
-import api.DirectedWeightedGraphAlgorithms;
-import api.EdgeData;
-import api.NodeData;
+import api.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.*;
 
-public class NewPanel extends JPanel {
+public class NewPanel extends JPanel{
 
     DirectedWeightedGraphAlgorithms graphAlgo;
-    //====================================
-//    public LinkedList<Point2D> points = new LinkedList<Point2D>();
-//    private double[] xPoints;
-//    private double[] yPoints;
-//    private int nPoints;
-    //====================================
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 
-    String message;
+    int HEIGHT = dimension.height;
+    int WIDTH = dimension.width;
 
 
     public NewPanel(DirectedWeightedGraphAlgorithms graphAlgo) {
         super();
         this.graphAlgo = graphAlgo;
         this.setBackground(new Color(7, 43, 73)); //change color of background
-        this.repaint();
+        repaint();
 
     }
-
-/*
-    void reset() {
-        points = new LinkedList<Point2D>();
-        this.repaint();
-    }
-*/
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         Graphics2D graph = (Graphics2D) g;
         graph.setStroke(new BasicStroke(2));
         System.out.println("inside paint");
@@ -66,21 +60,51 @@ public class NewPanel extends JPanel {
         System.out.println("maxY = " + maxY);
 
         // Here we do scale on each X,Y and draw them
-        for (int i = 0; i < this.graphAlgo.getGraph().nodeSize(); i++) {
-
-            System.out.println("old x = " + xPointsToFindMinMax.get(i));
-            System.out.println("old y = " + yPointsToFindMinMax.get(i));
-            double x = scale(xPointsToFindMinMax.get(i), minX, maxX, 100, 400);
-            double y = scale(yPointsToFindMinMax.get(i), minY, maxY, 100, 400);
+        for (Iterator<NodeData> it = graphAlgo.getGraph().nodeIter(); it.hasNext(); ) {
+            NodeData p = it.next();
+            int IntnodeId = p.getKey();
+            String StrNodeId = String.valueOf(IntnodeId);
+            System.out.println("old x = " + p.getLocation().x());
+            System.out.println("old y = " + p.getLocation().y());
+            double x = scale(p.getLocation().x(), minX, maxX, 100, WIDTH - 200);
+            double y = scale(p.getLocation().y(), minY, maxY, 100, HEIGHT - 200);
             System.out.println("new x = " + x);
             System.out.println("new y = " + y);
             g.setColor(Color.RED);
-            g.fillOval((int) x-5, (int) y-5, 10, 10);
+            g.fillOval((int) x - 5, (int) y - 5, 10, 10);
+//            g.drawOval((int) x-5, (int) y-5, 30, 30); //99999999999999999999999999
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("MV Boli", Font.ITALIC, 12)); //set font of text
+            g.drawString(StrNodeId, (int) x - 5, (int) y - 5);
+            System.out.println("after all");
+
+
+        }
+/*
+        for (int i = 0; i < this.graphAlgo.getGraph().nodeSize(); i++) {
+            System.out.println(graphAlgo.getGraph().nodeSize() + "-------------------------");
+            System.out.println(graphAlgo.getGraph().getNode(17));
+            System.out.println(this.graphAlgo.getGraph().getNode(i).getKey());
+            int IntnodeId = this.graphAlgo.getGraph().getNode(i).getKey();
+            String StrNodeId = String.valueOf(IntnodeId);
+            System.out.println("old x = " + xPointsToFindMinMax.get(i));
+            System.out.println("old y = " + yPointsToFindMinMax.get(i));
+            double x = scale(xPointsToFindMinMax.get(i), minX, maxX, 100, WIDTH - 200);
+            double y = scale(yPointsToFindMinMax.get(i), minY, maxY, 100, HEIGHT - 200);
+            System.out.println("new x = " + x);
+            System.out.println("new y = " + y);
+            g.setColor(Color.RED);
+            g.fillOval((int) x - 5, (int) y - 5, 10, 10);
+//            g.drawOval((int) x-5, (int) y-5, 30, 30); //99999999999999999999999999
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("MV Boli", Font.ITALIC, 12)); //set font of text
+            g.drawString(StrNodeId, (int) x - 5, (int) y - 5);
 //            g.fillOval((int) (p.getX()), (int) (p.getY()), 15, 15);
         }
-        for (int i = 0; i < this.graphAlgo.getGraph().edgeSize(); i++) {
-//            g.drawLine();
-        }
+//        for (int i = 0; i < this.graphAlgo.getGraph().edgeSize(); i++) {
+////            g.drawLine();
+//        }
+*/
 
         System.out.println(graphAlgo.getGraph().nodeSize());
         System.out.println(graphAlgo.getGraph().edgeSize());
@@ -94,16 +118,28 @@ public class NewPanel extends JPanel {
             double yOfESrc = this.graphAlgo.getGraph().getNode(e.getSrc()).getLocation().y();
             double xOfEDest = this.graphAlgo.getGraph().getNode(e.getDest()).getLocation().x();
             double yOfEDest = this.graphAlgo.getGraph().getNode(e.getDest()).getLocation().y();
-            xOfESrc = scale(xOfESrc, minX, maxX, 100, 400);
-            yOfESrc = scale(yOfESrc, minY, maxY, 100, 400);
-            xOfEDest = scale(xOfEDest, minX, maxX, 100, 400);
-            yOfEDest = scale(yOfEDest, minY, maxY, 100, 400);
+            xOfESrc = scale(xOfESrc, minX, maxX, 100, WIDTH - 200);
+            yOfESrc = scale(yOfESrc, minY, maxY, 100, HEIGHT - 200);
+            xOfEDest = scale(xOfEDest, minX, maxX, 100, WIDTH - 200);
+            yOfEDest = scale(yOfEDest, minY, maxY, 100, HEIGHT - 200);
             g.setColor(Color.WHITE);
-            g.drawLine((int)xOfESrc,(int)yOfESrc,(int)xOfEDest,(int)yOfEDest);
+            g.drawLine((int) xOfESrc, (int) yOfESrc, (int) xOfEDest, (int) yOfEDest);
+
+            Double weight = e.getWeight();
+            String weightS = weight.toString().substring(0, weight.toString().indexOf(".") + 2);
+            System.out.println("weightS is = " + weightS);
+            g.setFont(new Font("MV Boli", Font.ITALIC, 12)); //set font of text
+            if (yOfESrc < yOfEDest) {
+                g.drawString(weightS, (int) ((xOfESrc + xOfEDest) / 2 - 17), (int) ((yOfESrc + yOfEDest) / 2 - 17));
+            } else g.drawString(weightS, (int) ((xOfESrc + xOfEDest) / 2 + 12), (int) ((yOfESrc + yOfEDest) / 2 + 12));
+
 
         }
 //        repaint();
     }
+
+
+
 
 
     /**
@@ -120,38 +156,6 @@ public class NewPanel extends JPanel {
         return res;
 
     }
-
-
-
-
-
-/*
-        for (Point2D p : points) {
-            int rand = (int) (Math.random()*200);
-            System.out.println("old x = "+ p.getX());
-            System.out.println("old y = "+ p.getY());
-            double x = scale(p.getX(),35.187594216303474,35.212111165456015,0,height);
-            double y = scale(p.getY(),32.10107446554622,32.10788938151261,0,width);
-            System.out.println("new x = "+ x);
-            System.out.println("new y = "+ y);
-            g.setColor(Color.WHITE);
-            g.fillOval((int) x, (int) y, 10, 10);
-//            g.fillOval((int) (p.getX()), (int) (p.getY()), 15, 15);
-
-            if (prev != null) {
-                Double dist = p.distance(prev);
-                String distS = dist.toString().substring(0, dist.toString().indexOf(".") + 2);
-                g.setColor(Color.RED);
-                g.drawLine((int) x, (int) y,
-                        (int) prev.getY(), (int) prev.getY());
-                g.setFont(new Font("MV Boli", Font.TRUETYPE_FONT, 15)); //set font of text
-                g.drawString(distS, (int) ((p.getX() + prev.getX()) / 2), (int) ((p.getY() + prev.getY()) / 2));
-            }
-
-            prev = p;
-        }
-
-*/
 
 
 }

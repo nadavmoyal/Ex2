@@ -2,6 +2,8 @@ import api.DirectedWeightedGraphAlgorithms;
 import api.DirectedWeightedGraph;
 import api.*;
 
+import java.util.Arrays;
+
 /**
  * This class is the main class for Ex2 - your implementation will be tested using this class.
  */
