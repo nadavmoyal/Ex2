@@ -12,11 +12,7 @@ import java.util.*;
 public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
     private DirectedWeightedGraph graph;
 
-    public MyDWGraphAlgo() {
-        this.graph = new DW_Graph();
-
-
-    }
+    public MyDWGraphAlgo() {this.graph = new DW_Graph();}
 
     @Override
     public void init(DirectedWeightedGraph g) {
@@ -36,38 +32,34 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
     }
 
     @Override
-    public boolean isConnected() { // need to think how to do that ..
+    public boolean isConnected() {
         if (this.graph.nodeSize() == 0) {
             return true;
         }
+
+        DirectedWeightedGraph CopiedGraph =new DW_Graph(graph);
         resetTag();
-        DfsAlgo(this.graph.nodeIter().next().getKey());
-        Iterator<NodeData> nodes = this.graph.nodeIter();
+        DfsAlgo(CopiedGraph.nodeIter().next().getKey());
+        Iterator<NodeData> nodes = CopiedGraph.nodeIter();
         while (nodes.hasNext()) {
             int n = nodes.next().getTag();
             if (n == -1) {
                 return false;
             }
         }
-        //if(there is a node that we didnt visit) so return false
-        // than transpose;
-        ResetEdgeTag(this.graph.edgeIter());
-        getTranspose(this.graph);
-        DfsAlgo(this.graph.nodeIter().next().getKey());
-        Iterator<NodeData> IsVisited = this.graph.nodeIter();
+        ResetEdgeTag(CopiedGraph.edgeIter());
+        getTranspose(CopiedGraph);
+        DfsAlgo(CopiedGraph.nodeIter().next().getKey());
+        Iterator<NodeData> IsVisited = CopiedGraph.nodeIter();
         while (IsVisited.hasNext()) {
             int n = IsVisited.next().getTag();
             if (n == -1) {
-                getTranspose(this.graph);
+                getTranspose(CopiedGraph);
                 return false;
             }
         }
-//        getTranspose(this.graph);
-        //if(there is a node that we didnt visit) so return false
-        // need to change it to specific graph instead of this.graph
         return true;
     }
-
 
     private void getTranspose(DirectedWeightedGraph graph) {
         Iterator<EdgeData> EdgeIter = graph.edgeIter();
@@ -105,13 +97,6 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
             n.setTag(-1);
         }
     }
-
-//    private void ResetNodeTag(Iterator<NodeData> nodeIter) {
-//        while (nodeIter.hasNext()) {
-//            NodeData n = nodeIter.next();
-//            n.setTag(-1);
-//        }
-//    }
 
     private ArrayList<NodeData> dijkstraList(NodeData src, NodeData dest) {
         HashMap<NodeData,NodeData> Prev = new HashMap<>();
@@ -161,73 +146,6 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         return FinalPath;
 
     }
-//
-//        ArrayList<NodeData> printNodePath = new ArrayList<NodeData>();99999999999999999999999
-//        printNodePath.add(this.graph.Nodes.get(src));999999999999999999999999999999999
-//         here we use a PriorityQueue that gets a NodeData and compare them by the node weight
-//        ***************************************** NEW *********************************
-//        double shortest = Integer.MAX_VALUE;
-//        PriorityQueue<NodeData> priorityOnWeight = new PriorityQueue<NodeData>(this.graph.nodeSize(), (Comparator<NodeData>) (node_1, node_2) -> Double.compare(node_1.getWeight(), node_2.getWeight()));
-//        src.setWeight(0);
-//        priorityOnWeight.add(src);
-//        ArrayList<NodeData> prev = new ArrayList<NodeData>();
-//        prev.add(src);
-//        while (priorityOnWeight.size() != 0) {
-//            NodeData tempNode = priorityOnWeight.poll();
-//            for (Iterator<EdgeData> it = this.graph.edgeIter(tempNode.getKey()); it.hasNext(); ) {
-//                EdgeData edge = it.next();
-//                NodeData node = this.graph.getNode(edge.getDest());
-//                if (node.getInfo().equals("notVisited")) {
-//                    if (node.getWeight() > tempNode.getWeight() + edge.getWeight()) {
-//                        prev.add(node);
-//                        node.setWeight(Math.min(node.getWeight(), tempNode.getWeight() + edge.getWeight()));
-//                        node.setTag(tempNode.getKey());
-//                    }
-//                    priorityOnWeight.add(node);
-//                }
-//            }
-//            System.out.println("this is the path : ");
-//            for (int i = 0; i < prev.size(); i++) {
-//                System.out.print(prev.get(i).getKey());
-//            }
-//            System.out.println("");
-//
-//            tempNode.setInfo("visited");
-//            if (tempNode.getKey() == dest.getKey()) {
-//                return prev;
-//            }
-//        }
-//        return prev;
-        //===================================================================================================================
-//        PriorityQueue<NodeData> priorityOnWeight = new PriorityQueue<NodeData>(this.graph.nodeSize(), (Comparator<NodeData>) (node_1, node_2) -> Double.compare(node_1.getWeight(), node_2.getWeight()));
-//        priorityOnWeight.add(src);
-//        boolean[] nodeThatHaveBeenVisited = new boolean[this.graph.nodeSize()];
-//        Arrays.fill(nodeThatHaveBeenVisited, false);
-////        List<NodeData> nodePath = new ArrayList<NodeData>();
-//        int[] prev = new int[this.graph.nodeSize()];
-//        while (!priorityOnWeight.isEmpty()) {
-//            NodeData tempNode = priorityOnWeight.poll();
-//            // on this for-each we run on every edges that comes out from the src
-//            // in order to do that i change the field variable 'Edges' from private to public
-//            for (EdgeData edge : this.graph.Edges.get(tempNode.getKey()).values()) {
-//                NodeData node = this.graph.getNode(edge.getDest());
-//                if (nodeThatHaveBeenVisited[node.getKey()] == false) {
-//                    if (node.getWeight() > tempNode.getWeight() + edge.getWeight()) {
-//                        prev[edge.getDest()] = node.getKey();
-//                        node.setWeight(Math.min(node.getWeight(), tempNode.getWeight() + edge.getWeight()));
-//                        node.setTag(tempNode.getKey());
-//                    }
-//                }
-//                priorityOnWeight.add(node);
-//            }
-//            nodeThatHaveBeenVisited[tempNode.getKey()] = true;
-//            if (tempNode.getKey() == dest.getKey()) {
-//                return prev;
-//            }
-//        }
-//        return prev;
-        //==============================================================================
-//    }
 
 
     @Override
@@ -247,30 +165,11 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         return Ans;
     }
 
-
-//        resetWeight();
-//        resetTag();
-//        resetInfo();
-//        if (src == dest || dijkstraList(this.graph.getNode(src), this.graph.getNode(dest)).size() == 0) {
-//            resetWeight();
-//            resetTag();
-//            resetInfo();
-//            return new ArrayList<NodeData>();
-//        }
-//        ArrayList<NodeData> path = dijkstraList(this.graph.getNode(src), this.graph.getNode(dest));
-//        resetWeight();
-//        resetTag();
-//        resetInfo();
-//
-//        return path;
-//    }
-
-
     @Override
     public NodeData center() {
-//        if(!isConnected()){
-//            return null;
-//        }
+        if(!isConnected()){
+            return null;
+        }
         Iterator<EdgeData> NeiIterr = this.graph.edgeIter(3);
         while (NeiIterr.hasNext()) {
             EdgeData CurrEdge = NeiIterr.next();
@@ -279,7 +178,7 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         int MinKey = -1;
         HashMap<NodeData, Double> NodeMap = new HashMap<NodeData, Double>();
         double minOfAll = Double.MAX_VALUE;
-//        double max = 0;
+
         Iterator<NodeData> NodeIter = this.graph.nodeIter();
         while (NodeIter.hasNext()) {
             double max = 0;
@@ -301,7 +200,6 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         Iterator<NodeData> NodeIter3 = NodeMap.keySet().iterator();
         while (NodeIter3.hasNext()) {
             NodeData Nd3 = NodeIter3.next();
-
 
             if (NodeMap.get(Nd3) < minOfAll) {
                 minOfAll = NodeMap.get(Nd3);
@@ -339,7 +237,6 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         }
         return Nodelist;
     }
-
 
     //==================== BFS =========================
     @Override
@@ -398,33 +295,20 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
             return false;
         }
     }
-//    public class compareWeight implements Comparator<NodeData> {
-//        @Override
-//        public int compare(NodeData node_1, NodeData node_2) {
-//            return Double.compare(node_1.getWeight(), node_2.getWeight());
-//
-//        }
-//    }
 
     @Override
     public double shortestPathDist(int src, int dest) {
         if (src == dest) {
             return 0;
         }
-        resetInfo();
         resetTag();
-        resetWeight();
         double shortPathWeight = dijkstra(this.graph.getNode(src), this.graph.getNode(dest));
-        resetInfo();
         resetTag();
-        resetWeight();
         if (shortPathWeight == Double.MAX_VALUE) {
             return -1;
         }
         return shortPathWeight;
-
     }
-
 
     private double dijkstra(NodeData src, NodeData dest) {
         HashMap<NodeData, Double> DistMap = new HashMap<>();
@@ -463,7 +347,6 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
             return DistMap.get(this.graph.getNode(dest.getKey()));
         }
 
-
 ;    private void resetTag() {
         for (Iterator<NodeData> it = this.graph.nodeIter(); it.hasNext(); ) {
             NodeData node = it.next();
@@ -471,18 +354,4 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         }
     }
 
-    private void resetWeight() {
-        for (Iterator<NodeData> it = this.graph.nodeIter(); it.hasNext(); ) {
-            NodeData node = it.next();
-            node.setWeight(Integer.MAX_VALUE);
-        }
-    }
-
-
-    private void resetInfo() {
-        for (Iterator<NodeData> it = this.graph.nodeIter(); it.hasNext(); ) {
-            NodeData node = it.next();
-            node.setInfo("notVisited");
-        }
-    }
 }
