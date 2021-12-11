@@ -155,7 +155,7 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         dest=Prev.get(dest);
             while ((dest != null ) && (dest.getKey() != temp) ) {
                 FinalPath.add(0, dest);
-                dest = Prev.get(dest.getKey());
+                dest = Prev.get(dest);
             }
 
         return FinalPath;

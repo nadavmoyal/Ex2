@@ -33,9 +33,6 @@ class MyDWGraphAlgoTest {
         this.graph.connect(n2.getKey(), n3.getKey(),6);
         this.graph.connect(n3.getKey(), n4.getKey(),7);
 
-
-//        this.graph.connect(n2.getKey(), n1.getKey(),7);
-
         this.graphAlgo.init(graph);
         this.graphAlgo.getGraph();
     }
@@ -56,8 +53,6 @@ class MyDWGraphAlgoTest {
         this.graph.connect(n3.getKey(), n2.getKey(),1);
         this.graph.connect(n3.getKey(), n1.getKey(),1);
 
-//        this.graph.connect(n2.getKey(), n1.getKey(),7);
-
         this.graphAlgo.init(graph);
         this.graphAlgo.getGraph();
     }
@@ -66,18 +61,11 @@ class MyDWGraphAlgoTest {
         this.graph.removeEdge(n2.getKey(),n1.getKey());
         this.graph.removeEdge(n4.getKey(),n2.getKey());
     }
-    private void RemoveAll() {
-        this.graphAlgo=null;
-        this.graph=null;
-        this.n1=null;
-        this.n2=null;
-        this.n3=null;
-        this.n4=null;
-    }
+
 
     @Test
     void copy() {
-       RemoveAll();
+
        Default();
      DW_Graph GraphDup= new DW_Graph();
      GraphDup= (DW_Graph) this.graphAlgo.copy();
@@ -105,34 +93,37 @@ class MyDWGraphAlgoTest {
 
     @Test
     void shortestPath() {
-        RemoveAll();
         Default();
-        assertEquals(2,this.graphAlgo.shortestPath(1,4).size());
-        assertEquals(1,this.graphAlgo.shortestPath(1,2).get(0).getKey());
-        assertEquals(2,this.graphAlgo.shortestPath(1,2).get(1).getKey());
-//        assertEquals(3,this.graphAlgo.shortestPath(1,2).get(2).getKey());
-//        assertEquals(4,this.graphAlgo.shortestPath(1,3).get(3).getKey());
+        assertEquals(4,this.graphAlgo.shortestPath(1,4).size());
+        assertEquals(1,this.graphAlgo.shortestPath(1,4).get(0).getKey());
+        assertEquals(2,this.graphAlgo.shortestPath(1,4).get(1).getKey());
+        assertEquals(3,this.graphAlgo.shortestPath(1,4).get(2).getKey());
+        assertEquals(4,this.graphAlgo.shortestPath(1,4).get(3).getKey());
+
+
+        assertEquals(0,this.graphAlgo.shortestPath(4,1).size());
+        assertEquals(0,this.graphAlgo.shortestPath(4,2).size());
+
+        assertEquals(1,this.graphAlgo.shortestPath(1,1).size());
+        assertEquals(1,this.graphAlgo.shortestPath(2,2).size());
+        assertEquals(1,this.graphAlgo.shortestPath(3,3).size());
 
     }
 
     @Test
     void center() {
-        RemoveAll();
         DefaultForCenter();
-
-//        Iterator <EdgeData> G =this.graph.edgeIter(3);
-//        while (G.hasNext()){
-//            EdgeData DFGDF =G.next();
-//            System.out.println(DFGDF.getDest());
-//        }
        assertEquals(3,this.graphAlgo.center().getKey());
+
+        Default();
+        assertEquals(4,this.graphAlgo.center().getKey());
+
     }
 
 
 
     @Test
     void tsp() {
-        RemoveAll();
         Default();
         List<NodeData> nodePath = new LinkedList<NodeData>();
         nodePath.add(this.n1);
@@ -144,14 +135,5 @@ class MyDWGraphAlgoTest {
         this.graph.removeEdge(4,2);
         assertNull(this.graphAlgo.tsp(nodePath));
     }
-
-    @Test
-    void save() {
-    }
-
-    @Test
-    void load() {
-    }
-
 
 }
