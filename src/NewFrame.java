@@ -1,20 +1,13 @@
 import api.*;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class NewFrame extends JFrame implements ActionListener {
 
@@ -23,28 +16,26 @@ public class NewFrame extends JFrame implements ActionListener {
     JMenu fileMenu;
     JMenu editMenu;
     JMenu helpMenu;
-    JMenu chooseAlgoMenu; //888888888888888888888888888888888
-    JMenuItem shortPathDistItem; //888888888888888888888888888888888
-    JMenuItem shortPathItem;  //888888888888888888888888888888888
-    JMenuItem centerItem;   //888888888888888888888888888888888
-    JMenuItem tspItem;   //888888888888888888888888888888888
-    JMenuItem isConnectedItem;   //888888888888888888888888888888888
-    JMenuItem addNodeItem;   //888888888888888888888888888888888
-    JMenuItem removeNodeItem;   //888888888888888888888888888888888
-    JMenuItem removeEdgeItem;   //888888888888888888888888888888888
+    JMenu chooseAlgoMenu;
+    JMenuItem shortPathDistItem;
+    JMenuItem shortPathItem;
+    JMenuItem centerItem;
+    JMenuItem tspItem;
+    JMenuItem isConnectedItem;
+    JMenuItem addNodeItem;
+    JMenuItem removeNodeItem;
+    JMenuItem removeEdgeItem;
     JMenuItem loadItem;
     JMenuItem saveItem;
     JMenuItem exitItem;
 
-//    JTextField textField;
-//    JButton button;
 
-    DirectedWeightedGraphAlgorithms graphToLoad;// = new MyDWGraphAlgo();
+
+    DirectedWeightedGraphAlgorithms graphToLoad;
 
 
     private List<Integer> xPoints = new ArrayList<Integer>();
     private List<Integer> yPoints = new ArrayList<Integer>();
-    private LinkedList<Point2D> points = new LinkedList<Point2D>();
 
 
     public NewFrame(String json_file) {
@@ -73,24 +64,21 @@ public class NewFrame extends JFrame implements ActionListener {
         saveItem = new JMenuItem("Save");
         exitItem = new JMenuItem("Exit");
 
-        //=========================================
-        //add action for algo
+
         shortPathDistItem = new JMenuItem("ShortPathDist");
-        shortPathItem = new JMenuItem("ShortPath");  //888888888888888888888888888888888
-        centerItem = new JMenuItem("center"); //888888888888888888888888888888888
-        tspItem = new JMenuItem("tsp"); //888888888888888888888888888888888
-        isConnectedItem = new JMenuItem("isConnected"); //88888888888888888888
-        addNodeItem = new JMenuItem("addNode"); //88888888888
-        removeNodeItem = new JMenuItem("removeNode"); //88888888888
-        removeEdgeItem = new JMenuItem("removeEdge"); //88888888888
-        //=========================================
+        shortPathItem = new JMenuItem("ShortPath");
+        centerItem = new JMenuItem("center");
+        tspItem = new JMenuItem("tsp");
+        isConnectedItem = new JMenuItem("isConnected");
+        addNodeItem = new JMenuItem("addNode");
+        removeNodeItem = new JMenuItem("removeNode");
+        removeEdgeItem = new JMenuItem("removeEdge");
 
 
         loadItem.addActionListener(this);
         saveItem.addActionListener(this);
         exitItem.addActionListener(this);
 
-        //=========================================
         shortPathDistItem.addActionListener(this);
         shortPathItem.addActionListener(this);
         centerItem.addActionListener(this);
@@ -105,7 +93,6 @@ public class NewFrame extends JFrame implements ActionListener {
         fileMenu.add(saveItem);
         fileMenu.add(exitItem);
 
-        //================================
         chooseAlgoMenu.add(shortPathDistItem);
         chooseAlgoMenu.add(shortPathItem);
         chooseAlgoMenu.add(centerItem);
@@ -115,21 +102,14 @@ public class NewFrame extends JFrame implements ActionListener {
         chooseAlgoMenu.add(removeNodeItem);
         chooseAlgoMenu.add(removeEdgeItem);
 
-        //================================
 
 
         menuBar.add(fileMenu);
-        menuBar.add(editMenu);
-        menuBar.add(helpMenu);
+//        menuBar.add(editMenu);
+//        menuBar.add(helpMenu);
         menuBar.add(chooseAlgoMenu);
 
 
-//        //=====================
-//            panel = new NewPanel(graphToLoad);
-////            repaint();
-//            this.add(panel);
-
-        //================
         this.setJMenuBar(menuBar);
         this.setVisible(true);
 
@@ -140,9 +120,8 @@ public class NewFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loadItem) {
-            System.out.println("load");
+//            System.out.println("load");
 
-//            DirectedWeightedGraphAlgorithms graphToLoad = new MyDWGraphAlgo();
 
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File("."));
@@ -151,7 +130,6 @@ public class NewFrame extends JFrame implements ActionListener {
             if (respone == JFileChooser.APPROVE_OPTION) {
 
                 this.graphToLoad.load(fileChooser.getSelectedFile().getAbsolutePath());
-//                System.out.println(points);
                 this.panel = new NewPanel(this.graphToLoad);
                 this.add(panel);
                 this.setVisible(true);
@@ -161,45 +139,14 @@ public class NewFrame extends JFrame implements ActionListener {
             }
         }
         if (e.getSource() == saveItem) {
-            System.out.println("save");
-            this.panel.graphAlgo.save("true_save.json");
-//                System.out.println(points);
+//            System.out.println("save");
+            this.panel.graphAlgo.save("graphSave.json");
+            JOptionPane.showMessageDialog(null,"The file was saved successfully! file name = graphSave.json","graphSave",JOptionPane.INFORMATION_MESSAGE);
         }
         if (e.getSource() == exitItem) {
             System.exit(0);
         }
 
-/*
-        // first if we want to choose an algo to check we need to press on the menu bar to select one algo
-        if (e.getSource() == shortPathDistItem ){
-//            graphToLoad.shortestPath()
-            this.textField = new JTextField();
-            this.textField.setPreferredSize(new Dimension(250,40));
-            this.button = new JButton();
-            this.button.setText("enter src and dest");
-            this.button.addActionListener(this);
-            this.button.setBounds(100,100,250,100);
-            this.button.setFocusable(false);
-            this.add(button);
-            this.add(textField);
-//            this.pack();
-            this.panel.add(textField);
-            this.panel.add(button);
-            repaint();
-            this.setVisible(true);
-//            JOptionPane.showConfirmDialog(null,this.graphToLoad.)
-        }
-
-        // after if
-        if (e.getSource() == button){
-            String textInput = textField.getText();
-            String[] srcDest = textInput.split(",");
-            System.out.println(Arrays.toString(srcDest));
-            double ans = this.graphToLoad.shortestPathDist(Integer.parseInt(srcDest[0]),Integer.parseInt(srcDest[1]));
-            System.out.println("ans is = "+ ans);
-            JOptionPane.showMessageDialog(null,String.valueOf(ans) ,"the shortest path dist is", JOptionPane.PLAIN_MESSAGE);
-        }
-*/
         /**
          * shortPathDist get 2 input
          * @input_1 src - start node - from type int
@@ -209,9 +156,7 @@ public class NewFrame extends JFrame implements ActionListener {
         if (e.getSource() == shortPathDistItem) {
             String textInput = JOptionPane.showInputDialog("enter src and dest.\n It is important to note insert the data as follows: src,dest  - without spaces!!!");
             String[] srcDest = textInput.split(",");
-            System.out.println(Arrays.toString(srcDest));
             double ans = this.graphToLoad.shortestPathDist(Integer.parseInt(srcDest[0]), Integer.parseInt(srcDest[1]));
-            System.out.println("ans is = " + ans);
             JOptionPane.showMessageDialog(null, String.valueOf(ans), "the shortest path dist is", JOptionPane.PLAIN_MESSAGE);
 
         }
@@ -231,7 +176,11 @@ public class NewFrame extends JFrame implements ActionListener {
                 double nodeId = ans.get(i).getKey();
                 listOfNodePath[i] = "" + String.valueOf(nodeId) + "->";
             }
-            JOptionPane.showMessageDialog(null, Arrays.toString(listOfNodePath), "the shortest path dist is", JOptionPane.PLAIN_MESSAGE);
+            String showPath = Arrays.toString(listOfNodePath);
+            showPath = showPath.replaceAll(",","");
+            showPath = showPath.substring(1,showPath.length()-3);
+            System.out.println(showPath);
+            JOptionPane.showMessageDialog(null, showPath, "the shortest path dist is", JOptionPane.PLAIN_MESSAGE);
         }
 
         /**
@@ -240,7 +189,6 @@ public class NewFrame extends JFrame implements ActionListener {
          */
         if (e.getSource() == centerItem) {
             double ans = this.graphToLoad.center().getKey();
-            System.out.println("center is = " + ans);
             JOptionPane.showMessageDialog(null, String.valueOf(ans), "the center is", JOptionPane.PLAIN_MESSAGE);
         }
 
@@ -262,7 +210,11 @@ public class NewFrame extends JFrame implements ActionListener {
                 double nodeId = ans.get(i).getKey();
                 listOfNodeTSp[i] = "" + String.valueOf(nodeId) + "->";
             }
-            JOptionPane.showMessageDialog(null, Arrays.toString(listOfNodeTSp), "the tsp is", JOptionPane.PLAIN_MESSAGE);
+            String showPath = Arrays.toString(listOfNodeTSp);
+            showPath = showPath.replaceAll(",","");
+            showPath = showPath.substring(1,showPath.length()-3);
+            System.out.println(showPath);
+            JOptionPane.showMessageDialog(null, showPath, "the tsp is", JOptionPane.PLAIN_MESSAGE);
         }
 
         /**
@@ -283,15 +235,29 @@ public class NewFrame extends JFrame implements ActionListener {
          * connect to, and then we will have to draw the new line as well
          */
         if (e.getSource() == addNodeItem){
+            //******************************************************
+            ArrayList<Double> xPointsToFindMinMax = new ArrayList<Double>();
+            ArrayList<Double> yPointsToFindMinMax = new ArrayList<Double>();
+            for (Iterator<NodeData> it = this.graphToLoad.getGraph().nodeIter(); it.hasNext(); ) {
+                NodeData p = it.next();
+                xPointsToFindMinMax.add(p.getLocation().x());
+                yPointsToFindMinMax.add(p.getLocation().y());
+            }
+
+            double minX = Collections.min(xPointsToFindMinMax);
+            double maxX = Collections.max(xPointsToFindMinMax);
+            double minY = Collections.min(yPointsToFindMinMax);
+            double maxY = Collections.max(yPointsToFindMinMax);
+            //******************************************************
+
             int ans = JOptionPane.showConfirmDialog(null,"do you want to connect this Node with another Node?","you can enter a Node Now",JOptionPane.YES_NO_OPTION);
             if (ans == 0){ // if the answer is yes
-                String textInput = JOptionPane.showInputDialog("Enter X,Y,DEST (with which Node do you want to connect this new Node),WEIGHT_NEW_EDGE (what will be the weight of the new edge) .\n It is important to note insert the data as follows: X,Y,DEST,WEIGHT_NEW_EDGE  - without spaces!!!");
+                String textInput = JOptionPane.showInputDialog("Enter:\nX,Y (THE RANGE OF X YOU CAN ADD IS: "+minX+" - "+maxX+", THE RANGE OF Y YOU CAN ADD IS: "+minY+" - "+maxY+") \nDEST (with which Node do you want to connect this new Node)\nWEIGHT_NEW_EDGE (what will be the weight of the new edge) .\n It is important to note insert the data as follows: X,Y,DEST,WEIGHT_NEW_EDGE  - without spaces!!!");
                 String[] lst = textInput.split(",");
                 double x = Double.parseDouble(lst[0]);
                 double y = Double.parseDouble(lst[1]);
 
 
-//                double weightNode = Double.parseDouble(lst[2]); // we dont need NODE WEIGHT!!!
                 int dest = Integer.parseInt(lst[2]);
                 double weightEdge = Double.parseDouble(lst[3]);
                 // Z is always zero
@@ -300,30 +266,26 @@ public class NewFrame extends JFrame implements ActionListener {
                 // we can do that because the Node's id starts from zero and also when we remove a Node from the graph it won't change
                 int keyNode = this.graphToLoad.getGraph().nodeSize();
                 MyNode n = new MyNode(new MyGeoLocation(x,y,0.0),keyNode);
-//                n.setWeight(weightNode);
                 this.graphToLoad.getGraph().addNode(n);
                 this.graphToLoad.getGraph().connect(n.getKey(),dest,weightEdge);
-                //***************** I ADD THIS *****************
                 this.panel = new NewPanel(this.graphToLoad);
                 this.add(this.panel);
                 this.setVisible(true);
                 repaint();
-                //*********************************************
+
             }else{ // if the answer is no
-                String textInput = JOptionPane.showInputDialog(" Enter X,Y\n It is important to note insert the data as follows: X,Y  - without spaces!!!");
+                String textInput = JOptionPane.showInputDialog("Enter:\nX,Y (THE RANGE OF X YOU CAN ADD IS: "+minX+" - "+maxX+", THE RANGE OF Y YOU CAN ADD IS: "+minY+" - "+maxY+")\n It is important to note insert the data as follows: X,Y  - without spaces!!!");
                 String[] lst = textInput.split(",");
                 double x = Double.parseDouble(lst[0]);
                 double y = Double.parseDouble(lst[1]);
                 int keyNode = this.graphToLoad.getGraph().nodeSize();
                 MyNode n = new MyNode(new MyGeoLocation(x,y,0.0),keyNode);
-//                n.setWeight(weightNode);
                 this.graphToLoad.getGraph().addNode(n);
-                //**************** I ADD THIS *********************
+
                 this.panel = new NewPanel(this.graphToLoad);
                 this.add(panel);
                 this.setVisible(true);
                 repaint();
-                //*********************************************
             }
 
         }
@@ -336,21 +298,15 @@ public class NewFrame extends JFrame implements ActionListener {
          */
         if (e.getSource() == removeNodeItem){
             String textInput = JOptionPane.showInputDialog("Enter the key Node you want to remove");
-//            String[] lst = textInput.split(",");
             while (this.graphToLoad.getGraph().getNode(Integer.parseInt(textInput)) == null){
                 textInput = JOptionPane.showInputDialog("there is no such Node in the graph please enter a new one");
             }
-            System.out.println(this.graphToLoad.getGraph().nodeSize()+"..............................");
             this.graphToLoad.getGraph().removeNode(Integer.parseInt(textInput));
-            System.out.println(this.graphToLoad.getGraph().nodeSize()+"..............................");
 
-            //            this.panel = new NewPanel(this.graphToLoad);
-            //***************** I ADD THIS ********************
             this.panel = new NewPanel(this.graphToLoad);
             this.add(panel);
             this.setVisible(true);
             repaint();
-            //*********************************************
         }
         /**
          * Deletes the edge from the graph,
@@ -364,41 +320,15 @@ public class NewFrame extends JFrame implements ActionListener {
             String[] lst = textInput.split(",");
             int src = Integer.parseInt(lst[0]);
             int dest = Integer.parseInt(lst[1]);
+            while(this.graphToLoad.getGraph().getEdge(src,dest) == null){
+                textInput = JOptionPane.showInputDialog("there is no such Edge in the graph please enter a new one\n It is important to note insert the data as follows: src,dest  - without spaces!!!");
+                lst = textInput.split(",");
+                src = Integer.parseInt(lst[0]);
+                dest = Integer.parseInt(lst[1]);
+            }
             this.graphToLoad.getGraph().removeEdge(src,dest);
             repaint();
         }
     }
 
-
-    private double scale(double data, double r_min, double r_max,
-                         double t_min, double t_max) {
-        double res = ((data - r_min) / (r_max - r_min)) * (t_max - t_min) + t_min;
-        return res;
-
-    }
-
-
-    //============================================================
-//    private Map<String, String> readJson(String file) throws FileNotFoundException {
-//        String path = file;
-//        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-//
-//        Gson gson = new Gson();
-//        Map json = gson.fromJson(bufferedReader, Map.class);
-//        return json;
-//    }
-//
-//
-//    private String[] createStringOfEdgesDataFromJson(Map<String, String> map) {
-//        String s = map.values().toArray()[1].toString();
-//        s = s.replaceAll("[{}pos=id\\[\\]]", "");
-//        String[] s1 = s.split(",");
-//        return s1;
-//    }
-
-
-    public static void main(String[] args) {
-//        DirectedWeightedGraph g = new DW_Graph();
-        new NewFrame("src/G1.json");
-    }
 }
