@@ -1,5 +1,5 @@
-![This is an image](https://upload.wikimedia.org/wikipedia/commons/e/e2/Ariel_University_Logo.pdf)
 
+![alt text](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUC7G6cLvCjY5-Sq4vRcieUJc_O4KjwMl8NQEKDTrAElDHc2178puykOjpVgY8XRASD_M&usqp=CAU)
 
 # Ex2
 >Made by Yehonatan Barel and Nadav Moyal.
