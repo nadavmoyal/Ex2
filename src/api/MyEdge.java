@@ -11,16 +11,8 @@ public class MyEdge implements EdgeData{
     private double weight;
     private String info;
 
-//    public MyEdge (){   // NEED TO FIX
-//         this.src=0;
-//         this.dest=0;
-//         this.tag=0;
-//         this.weight=0;
-//         this.info="";
-//
-//    }
 
-    public MyEdge (int src,int dest, double weight) {   // NEED TO FIX
+    public MyEdge (int src,int dest, double weight) {
         this.src = src;
         this.weight = weight;
         this.dest = dest;
@@ -64,11 +56,10 @@ public class MyEdge implements EdgeData{
     }
 }
 
-class EdgeDataAdapter implements JsonSerializer<EdgeData>, JsonDeserializer<EdgeData> {
+class EdgeDataRead implements JsonSerializer<EdgeData>, JsonDeserializer<EdgeData> {
 
     @Override
     public JsonElement serialize(EdgeData edge, Type type, JsonSerializationContext jsonSerializationContext) {
-//      write edge to a json
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("src", edge.getSrc());
         jsonObject.addProperty("w", edge.getWeight());
@@ -78,7 +69,6 @@ class EdgeDataAdapter implements JsonSerializer<EdgeData>, JsonDeserializer<Edge
 
     @Override
     public EdgeData deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-//      read edge from a json
         int src = jsonElement.getAsJsonObject().get("src").getAsInt();
         int dest = jsonElement.getAsJsonObject().get("dest").getAsInt();
         double w = jsonElement.getAsJsonObject().get("w").getAsDouble();

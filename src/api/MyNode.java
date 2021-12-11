@@ -10,14 +10,6 @@ public class MyNode implements NodeData{
     private int tag;
     private String info;
     private MyGeoLocation location;
-//
-//    public  MyNode() {
-//        this.key=0;
-//        this.weight=0;
-//        this.tag=0;
-//        this.location=new MyGeoLocation(0,0,0);
-//        this.info="";
-//    }
 
     public MyNode(MyGeoLocation location, int key) {
         this.location = location;
@@ -27,23 +19,18 @@ public class MyNode implements NodeData{
         this.info = "";
     }
 
-    public MyNode (MyGeoLocation location, int key, double weight, int tag, String info ){
-        this.location = location;
-        this.key = key;
-        this.weight = weight;
-        this.tag = tag;
-        this.info = info;
-        //NodeData node
-//        this.key=node.getKey();
-//        this.weight=node.getWeight();
-//        this.tag= node.getTag();
-//        this.location=new MyGeoLocation(node.getLocation().x(),node.getLocation().y(),node.getLocation().z());
-//        this.info=node.getInfo();
+        public MyNode (MyGeoLocation location, int key, double weight, int tag, String info ){
+            this.location = location;
+            this.key = key;
+            this.weight = weight;
+            this.tag = tag;
+            this.info = info;
+
     }
 
 
 
-    @Override
+        @Override
     public int getKey() {
         return this.key;
     }
@@ -90,10 +77,9 @@ public class MyNode implements NodeData{
     }
 }
 
-class NodeDataAdapter implements JsonSerializer<NodeData>, JsonDeserializer<NodeData> {
+class NodeDataRead implements JsonSerializer<NodeData>, JsonDeserializer<NodeData> {
     @Override
     public JsonElement serialize(NodeData node, Type type, JsonSerializationContext jsonSerializationContext) {
-//      write node to a json
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("pos", node.getLocation().toString());
         jsonObject.addProperty("id", node.getKey());
@@ -102,7 +88,6 @@ class NodeDataAdapter implements JsonSerializer<NodeData>, JsonDeserializer<Node
 
     @Override
     public NodeData deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-//      read node from a json
         int id = jsonElement.getAsJsonObject().get("id").getAsInt();
         MyGeoLocation p = null;
         if (jsonElement.getAsJsonObject().get("pos") != null) {

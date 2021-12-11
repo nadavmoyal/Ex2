@@ -1,9 +1,7 @@
 package api;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,8 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MyDWGraphAlgoTest {
     private DW_Graph graph;
     private MyDWGraphAlgo graphAlgo;
-   // private DirectedWeightedGraph graph;
-    NodeData n1,n2,n3,n4,n5;
+    NodeData n1,n2,n3,n4;
 
 
     void Default(){
@@ -109,7 +106,6 @@ class MyDWGraphAlgoTest {
         assertEquals(1,this.graphAlgo.shortestPath(3,3).size());
 
     }
-
     @Test
     void center() {
         DefaultForCenter();
@@ -119,8 +115,6 @@ class MyDWGraphAlgoTest {
         assertEquals(4,this.graphAlgo.center().getKey());
 
     }
-
-
 
     @Test
     void tsp() {

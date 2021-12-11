@@ -259,7 +259,7 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
     public boolean save(String file) {
 //      save grape in json format
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(DW_Graph.class, new GraphAdapter());
+        gsonBuilder.registerTypeAdapter(DW_Graph.class, new GraphReader());
         Gson gson = gsonBuilder.create();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(gson.toJson(graph));
@@ -285,7 +285,7 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
     public boolean load(String file) {
 //      load grape from json
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(DW_Graph.class, new GraphAdapter());
+        gsonBuilder.registerTypeAdapter(DW_Graph.class, new GraphReader());
         Gson gson = gsonBuilder.create();
         try (FileReader reader = new FileReader(file)) {
             init(gson.fromJson(reader, DW_Graph.class));
