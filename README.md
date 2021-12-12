@@ -16,7 +16,7 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 
 # Description of the classes:
 
-## class MyGeoLocation implements GeoLocation:
+## Class MyGeoLocation implements GeoLocation:
 ##### This class represents a geo location <x,y,z>, (aka Point3D data).
 
 |          Methods                | Details                             | 
@@ -25,7 +25,7 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 |`MyGeoLocation()`|An empty constractor of a new GeoLocation.| 
 |`MyGeoLocation(GeoLocation g)`|A constractor of a new GeoLocation|   
 
-## class MyNode implements NodeData:
+## Class MyNode implements NodeData:
 ##### This class represents the set of operations applicable on a node (vertex) in a (directional) weighted graph.
 
 |          Methods                | Details                             | 
@@ -41,7 +41,7 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 |`setTag(int t)`|Allows setting the "tag" value for temporal marking an node-common practice for marking by algorithms.|
 
 
-## class MyEdge implements EdgeData:
+## Class MyEdge implements EdgeData:
 ##### This class represents the set of operations applicable on a directional edge (src,dest) in a (directional) weighted graph.
                                  
 |          Methods                | Details                             | 
@@ -54,7 +54,7 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 |`getTag()`|Returns the tag associated with this edge .|   
 |`setTag(int t)`|Allows setting the "tag" value for temporal marking an edge -common practice for marking by algorithms.|
 
-## class  DW_Graph implements DirectedWeightedGraph:
+## Class  DW_Graph implements DirectedWeightedGraph:
 ##### This class represents a Directional Weighted Graph.
  
 |          Methods                | Details                             | 
@@ -73,7 +73,7 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 |`getMC()`|Returns the Mode Count - for testing changes in the graph.|
 
 
-## class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms:
+## Class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms:
 ##### This class represents a Directed (positive) Weighted Graph Theory Algorithms.
  
 |          Methods                | Details                             | 
@@ -94,13 +94,13 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 |`save(String file)`|Saves this weighted (directed) graph to the given file name - in JSON format, in oreder to do that we used serializer| 
 |`load(String file)`|This method loads a graph to this graph algorithm, in oreder to do that we used serializer|   
 
-## second part - GUI visualization:
+## Second part - GUI visualization:
 
 |          class                  | Details                             | 
 | --------------------------------|:--------------------------------------:| 
 |`NewPanel`,`NewFrame`|A classes that contains all the functions and calculations in order to display the graph and algorithms clearly on the screen.| 
 
 
-## diagram of the project: 
+## Diagram of the project: 
 (It is recommended to zoom in.)
 ![Ex2](https://user-images.githubusercontent.com/79272744/145713175-c69f347b-c187-4c20-adfc-91cd1e0b90e9.png)
