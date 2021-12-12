@@ -11,7 +11,8 @@
 >https://github.com/yehonatanbarel    
 
 ## Introduction:
-This project is an assignment in an object-oriented course at Ariel University. The project consists of two parts: The first part is an implenentation of directed weighted graph and consist ___ classes, ___ interfaces with __ implementations and another class belonging to the second part of the assignment that we will detail below. 
+This project is an assignment in an object-oriented course at Ariel University. The project consists of two parts: The first part is an implenentation of directed weighted graph and consist 5 classes, 5 interfaces. Another classes are belonging to the second part of the assignment that we will detail now. 
+The second part of the project is to bulid a GUI visualization , that recive a graph and can compute the algorithms that we were build in the first part of the assignment.
 
 # Description of the classes:
 
@@ -93,6 +94,13 @@ This project is an assignment in an object-oriented course at Ariel University. 
 |`save(String file)`|Saves this weighted (directed) graph to the given file name - in JSON format, in oreder to do that we used serializer| 
 |`load(String file)`|This method loads a graph to this graph algorithm, in oreder to do that we used serializer|   
 
+## second part - GUI visualization:
 
-## diagram of the project:
+|          class                  | Details                             | 
+| --------------------------------|:--------------------------------------:| 
+|`NewPanel`,`NewFrame`|A classes that contains all the functions and calculations in order to display the graph and algorithms clearly on the screen.| 
+
+
+## diagram of the project: 
+(It is recommended to zoom in.)
 ![Ex2](https://user-images.githubusercontent.com/79272744/145713175-c69f347b-c187-4c20-adfc-91cd1e0b90e9.png)
