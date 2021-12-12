@@ -140,8 +140,9 @@ public class NewFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == saveItem) {
 //            System.out.println("save");
-            this.panel.graphAlgo.save("graphSave.json");
-            JOptionPane.showMessageDialog(null,"The file was saved successfully! file name = graphSave.json","graphSave",JOptionPane.INFORMATION_MESSAGE);
+            String nameOfSavedFile = JOptionPane.showInputDialog("Enter what you want the saved file to be called");
+            this.panel.graphAlgo.save(nameOfSavedFile+".json");
+            JOptionPane.showMessageDialog(null,"The file was saved successfully! file name = "+ nameOfSavedFile,"graphSave",JOptionPane.INFORMATION_MESSAGE);
         }
         if (e.getSource() == exitItem) {
             System.exit(0);
