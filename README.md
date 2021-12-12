@@ -85,8 +85,7 @@ This project is an assignment in an object-oriented course at Ariel University. 
 |`shortestPath(int src, int dest)`|Computes the the shortest path between src to dest - as an ordered List of nodes|   
 |`center()`|Finds the NodeData which minimizes the max distance to all the other nodes.|
 |`tsp(List<NodeData> cities)`|Computes a list of consecutive nodes which go over all the nodes in cities.| 
-|`save(String file)`|Saves this weighted (directed) graph to the given file name - in JSON format| 
-|`load(String file)`|This method loads a graph to this graph algorithm.|   
-
+|`save(String file)`|Saves this weighted (directed) graph to the given file name - in JSON format, in oreder to do that we used serializer| 
+|`load(String file)`|This method loads a graph to this graph algorithm, in oreder to do that we used serializer|   
 
    
