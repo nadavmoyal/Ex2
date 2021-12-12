@@ -14,6 +14,12 @@
 This project is an assignment in an object-oriented course at Ariel University. The project consists of two parts: The first part is an implenentation of directed weighted graph and consist 5 classes, 5 interfaces. Another classes are belonging to the second part of the assignment that we will detail now. 
 The second part of the project is to bulid a GUI visualization , that recive a graph and can compute the algorithms that we were build in the first part of the assignment.
 
+## Operating Instructions:
+1. Download the jar file.
+2. Put the Json files in the same folder.
+3. In the command line, write the following command:
+"java -jar Ex2.jar "NameOfJsonFile.json" "
+
 # Description of the classes:
 
 ## Class MyGeoLocation implements GeoLocation:
@@ -107,3 +113,5 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 ## Diagram of the project: 
 (It is recommended to zoom in.)
 ![Ex2](https://user-images.githubusercontent.com/79272744/145713175-c69f347b-c187-4c20-adfc-91cd1e0b90e9.png)
+
+
