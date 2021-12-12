@@ -88,5 +88,6 @@ This project is an assignment in an object-oriented course at Ariel University. 
 |`save(String file)`|Saves this weighted (directed) graph to the given file name - in JSON format, in oreder to do that we used serializer| 
 |`load(String file)`|This method loads a graph to this graph algorithm, in oreder to do that we used serializer|   
 
- ![Ex2](https://user-images.githubusercontent.com/79272744/145711788-1484c3c4-3699-41a7-9145-ee684f5d7a85.png)
+ 
 
+![Ex2](https://user-images.githubusercontent.com/79272744/145713175-c69f347b-c187-4c20-adfc-91cd1e0b90e9.png)
