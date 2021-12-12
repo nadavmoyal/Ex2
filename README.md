@@ -117,10 +117,10 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 ### RunTime:
 1000V , 10000E :
 building graph - 1.76 sec
-isconnected - 0.3 sec
-remove - 0.26 sec
-shortpathdist - 0.31 sec 
+,isconnected - 0.3 sec
+,remove - 0.26 sec
+,shortpathdist - 0.31 sec 
 
 10000V , 100000E :
 building graph - 4.44 sec
-shortpathdist - 0.31 sec
+,shortpathdist - 0.31 sec
