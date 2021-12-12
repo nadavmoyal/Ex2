@@ -8,7 +8,9 @@ public class DW_Graph implements DirectedWeightedGraph {
     private int NumberOfNodes;
     private int NumberOfEdges;
 
-
+    /**
+     * Default constructor.
+     */
     public DW_Graph(){
          this.Nodes= new HashMap<>();
          this.Edges =new HashMap<>();
@@ -16,7 +18,9 @@ public class DW_Graph implements DirectedWeightedGraph {
          NumberOfEdges=0;
          ModeCount=0;
     }
-
+    /**
+     *  Constructor that doing a deep copy of the graph.
+     */
     public DW_Graph(DirectedWeightedGraph newGraph) {
         this.Nodes= new HashMap<>();
         this.Edges =new HashMap<>();
@@ -25,7 +29,9 @@ public class DW_Graph implements DirectedWeightedGraph {
         NumberOfNodes=newGraph.nodeSize();
         NumberOfEdges=newGraph.edgeSize();
     }
-
+    /**
+     *   Func that doing a deep copy of the edges.
+     */
     private void EdgesCopy(DirectedWeightedGraph newGraph, HashMap<Integer, HashMap<Integer, EdgeData>> edges) {
         HashMap<Integer, HashMap<Integer, EdgeData>> EdgeDup =  edges;
         for (Iterator<EdgeData> it = newGraph.edgeIter(); it.hasNext(); ) {
@@ -36,7 +42,9 @@ public class DW_Graph implements DirectedWeightedGraph {
             newGraph.connect(src, dest, weight);
         }
     }
-
+    /**
+     *   Func that doing a deep copy of the nodes.
+     */
     private void NodesCopy(DirectedWeightedGraph newGraph, HashMap<Integer, NodeData> nodes) {
         HashMap<Integer, NodeData> NodeDup = nodes;
         for (Iterator<NodeData> it = newGraph.nodeIter(); it.hasNext(); ) {
@@ -44,12 +52,17 @@ public class DW_Graph implements DirectedWeightedGraph {
             this.addNode(n);
         }
     }
-
+    /**
+     *   Returns the node_data by the node_id.
+     */
     @Override
     public NodeData getNode(int key) {
         return this.Nodes.get(key);
     }
-
+    /**
+     *   Returns the data of the edge (src,dest),
+     *   null if none,this method run in O(1) time
+     */
     @Override
     public EdgeData getEdge(int src, int dest) {
         if(this.Nodes.containsKey(src)){
@@ -59,7 +72,10 @@ public class DW_Graph implements DirectedWeightedGraph {
         }
         return null;
     }
-
+    /**
+     *  Adds a new node to the graph with
+     *  the given node_data,this method run in O(1) time.
+     */
     @Override
     public void addNode(NodeData n) {
         if(n!=null){
@@ -71,7 +87,9 @@ public class DW_Graph implements DirectedWeightedGraph {
             }
         }
     }
-
+    /**
+     *  Connects an edge with weight w between node src to node dest, this method run in O(1) time.
+     */
     @Override
     public void connect(int src, int dest, double w) {
         if((src!=dest)&&(w>0)){
@@ -85,13 +103,17 @@ public class DW_Graph implements DirectedWeightedGraph {
               this.ModeCount++;
         }
     }
-    //* Note: if the graph was changed since the iterator was constructed - a RuntimeException should be thrown.
+    /**
+     *  Returns an Iterator for the collection representing all the nodes in the graph.
+     */
     @Override
     public Iterator<NodeData> nodeIter() {
 
         return (Iterator<NodeData>) this.Nodes.values().iterator();
     }
-
+    /**
+     *   RReturns an Iterator for all the edges in this graph.
+     */
     @Override
     public Iterator<EdgeData> edgeIter() {
         ArrayList <EdgeData> EdgeArr= new ArrayList<EdgeData>();
@@ -108,12 +130,16 @@ public class DW_Graph implements DirectedWeightedGraph {
         Iterator <EdgeData> FinalIterator =  EdgeArr.iterator();
        return FinalIterator;
     }
-
+    /**
+     *   returns an Iterator for edges getting out of the given node.
+     */
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
         return this.Edges.get(node_id).values().iterator();
     }
-
+    /**
+     *  Deletes the node (with the given ID) from the graph-and removes all edges which starts or ends at this node.
+     */
     @Override
     public NodeData removeNode(int key) {
         if(Nodes.containsKey(key)) {
@@ -139,7 +165,9 @@ public class DW_Graph implements DirectedWeightedGraph {
         }
         return null;
     }
-
+    /**
+     *  Deletes the edge from the graph, this method run in O(1) time.
+     */
     @Override
     public EdgeData removeEdge(int src, int dest) {
         if(src!=dest) {
@@ -153,14 +181,20 @@ public class DW_Graph implements DirectedWeightedGraph {
         }
         return null;
     }
-
+    /**
+     *   Returns the number of vertices (nodes) in the graph,this method run in O(1) time.
+     */
     @Override
     public int nodeSize() { return this.NumberOfNodes;}
-
+    /**
+     * Returns the number of edges (assume directional graph),this method run in O(1) time.
+     */
     @Override
     public int edgeSize() { return this.NumberOfEdges;}
 
-
+    /**
+     *  Returns the Mode Count - for testing changes in the graph.
+     */
     @Override
     public int getMC() { return this.ModeCount;}
 }

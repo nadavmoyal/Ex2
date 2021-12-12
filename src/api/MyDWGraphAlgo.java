@@ -11,26 +11,38 @@ import java.util.*;
 
 public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
     private DirectedWeightedGraph graph;
-
+    /**
+     * Default constructor of the graph.
+     */
     public MyDWGraphAlgo() {this.graph = new DW_Graph();}
-
+    /**
+     * Inits the graph on which this set of algorithms operates on.
+     */
     @Override
     public void init(DirectedWeightedGraph g) {
         this.graph = g;
     }
-
+    /**
+     * Returns the underlying graph of which this class works.
+     */
     @Override
     public DirectedWeightedGraph getGraph() {
         return this.graph;
     }
-
+    /**
+     * Computes a deep copy of this weighted graph.
+     */
     @Override
     public DirectedWeightedGraph copy() {
         DirectedWeightedGraph GraphCopy = new DW_Graph(graph);
         //need to return a new deep copy of the graph
         return GraphCopy;
     }
-
+    /**
+     *Returns true if and only if there is a valid path from each
+     *  node to each other node.
+     *  We use get transpose and Dfs algo to compute is the graph is connected.
+     */
     @Override
     public boolean isConnected() {
         if (this.graph.nodeSize() == 0) {
@@ -60,7 +72,10 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         }
         return true;
     }
-
+    /**
+     * Compute the transpose of the graph.
+     * Helper for "IsConnected" algo.
+     */
     private void getTranspose(DirectedWeightedGraph graph) {
         Iterator<EdgeData> EdgeIter = graph.edgeIter();
         while (EdgeIter.hasNext()) {
@@ -77,7 +92,13 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
             }
         }
     }
-
+    /**
+     * Depth-first search (DFS) is an algorithm for traversing or
+     * searching tree or graph data structures.
+     * The algorithm starts at the root node
+     * (selecting some arbitrary node as the root node in the case of a graph)
+     * and explores as far as possible along each branch before backtracking.
+     */
     private void DfsAlgo(int NodeKey) {
         int dest;
         this.graph.getNode(NodeKey).setTag(1);
@@ -90,14 +111,21 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
 
         }
     }
-
+    /**
+     * Set all the tags of the edges to -1 .
+     */
     private void ResetEdgeTag(Iterator<EdgeData> EdgeIter) {
         while (EdgeIter.hasNext()) {
             EdgeData n = EdgeIter.next();
             n.setTag(-1);
         }
     }
-
+    /**
+     * Dijkstra's algorithm uses a data structure for storing and querying partial
+     * solutions sorted by distance from the start.
+     * We use this algo as helper for "shortest path" .
+     * Returns the shortest path as a list of nodes that represents the path.
+     */
     private ArrayList<NodeData> dijkstraList(NodeData src, NodeData dest) {
         HashMap<NodeData,NodeData> Prev = new HashMap<>();
         HashMap<NodeData, Double> DistMap = new HashMap<>();
@@ -147,7 +175,10 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
 
     }
 
-
+    /**
+     * Computes the the shortest path between src to dest - as an ordered List of nodes.
+     * We use "dijkstra list algo" as a helper that compute that shortest path List of the graph.
+     */
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         NodeData Source = this.graph.getNode(src);
@@ -164,16 +195,14 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         Ans = dijkstraList(Source,Destination);
         return Ans;
     }
-
+    /**
+     * Finds the NodeData which minimizes the max distance to all the other nodes.
+     * We use "dijkstra algo" as a helper that compute that shortest path dist of every node in the graph.
+     */
     @Override
     public NodeData center() {
         if(!isConnected()){
             return null;
-        }
-        Iterator<EdgeData> NeiIterr = this.graph.edgeIter(3);
-        while (NeiIterr.hasNext()) {
-            EdgeData CurrEdge = NeiIterr.next();
-            System.out.println(CurrEdge.getDest());
         }
         int MinKey = -1;
         HashMap<NodeData, Double> NodeMap = new HashMap<NodeData, Double>();
@@ -187,9 +216,7 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
             while (EachNodeIter.hasNext()) {
                 NodeData EachNd = EachNodeIter.next();
                 if (EachNd.getKey() != Nd.getKey()) {
-                    System.out.println("from :" +Nd.getKey()+ ", to" + EachNd.getKey());
                     double k = dijkstra(Nd, EachNd);
-                    System.out.println("is :"+k);
                     if ((max < k)&&(k!=Double.MAX_VALUE)) {
                         max = k;
                     }
@@ -203,13 +230,16 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
 
             if (NodeMap.get(Nd3) < minOfAll) {
                 minOfAll = NodeMap.get(Nd3);
-           System.out.println("the current value is ====="+NodeMap.get(Nd3));
            MinKey = Nd3.getKey();
             }
         }
         return this.graph.getNode(MinKey);
     }
-
+    /**
+     * Breadth-first search (BFS)
+     * is an algorithm for searching a tree data structure for a node that satisfies a given property.
+     * We use it for tsp algo
+     */
     //=================== BFS ============================
     public List<NodeData> bfs(int src) {
         resetTag();
@@ -237,7 +267,10 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         }
         return Nodelist;
     }
-
+    /**
+     * Computes a list of consecutive nodes which go over all the nodes in cities.
+     * We use in "BFS" as a helper that compute the list for as.
+     */
     //==================== BFS =========================
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
@@ -295,7 +328,9 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
             return false;
         }
     }
-
+    /**
+     * Computes the length of the shortest path between src to dest.
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         if (src == dest) {
@@ -309,7 +344,12 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
         }
         return shortPathWeight;
     }
-
+    /**
+     * Dijkstra's algorithm uses a data structure for storing and querying partial
+     * solutions sorted by distance from the start.
+     * We use this algo as helper for "shortest path" .
+     * Returns the shortest path as a double number.
+     */
     private double dijkstra(NodeData src, NodeData dest) {
         HashMap<NodeData, Double> DistMap = new HashMap<>();
         Queue<NodeData> PQ = new PriorityQueue<>(Comparator.comparingDouble(DistMap::get));
@@ -346,7 +386,9 @@ public class MyDWGraphAlgo implements DirectedWeightedGraphAlgorithms {
             }
             return DistMap.get(this.graph.getNode(dest.getKey()));
         }
-
+    /**
+     * Set all the tags of the nodes to -1 .
+     */
 ;    private void resetTag() {
         for (Iterator<NodeData> it = this.graph.nodeIter(); it.hasNext(); ) {
             NodeData node = it.next();
