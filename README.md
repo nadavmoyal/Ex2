@@ -114,4 +114,13 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 (It is recommended to zoom in.)
 ![Ex2](https://user-images.githubusercontent.com/79272744/145713175-c69f347b-c187-4c20-adfc-91cd1e0b90e9.png)
 
+### RunTime:
+1000V , 10000E :
+building graph - 1.76 sec
+isconnected - 0.3 sec
+remove - 0.26 sec
+shortpathdist - 0.31 sec 
 
+10000V , 100000E :
+building graph - 4.44 sec
+shortpathdist - 0.31 sec
