@@ -80,14 +80,19 @@ This project is an assignment in an object-oriented course at Ariel University. 
 |`init(DirectedWeightedGraph g)`|Inits the graph on which this set of algorithms operates on.| 
 |`DirectedWeightedGraph getGraph()`|Returns the underlying graph of which this class works.|
 |`copy()`|Computes a deep copy of this weighted graph.| 
-|`isConnected()`|Returns true if and only if (iff) there is a valid path from each node to each other node.| 
+|`isConnected()`|Returns true if and only if there is a valid path from each node to each other node.| 
 |`shortestPathDist(int src, int dest)`|Computes the length of the shortest path between src to dest.| 
+|`dijkstra(NodeData src, NodeData dest)`|eturns the shortest path as a double number.helper for "center" ,and for "shortest path dist".| 
 |`shortestPath(int src, int dest)`|Computes the the shortest path between src to dest - as an ordered List of nodes|   
+|`DfsAlgo(int NodeKey)`|Depth-first search algo , helper for "isconnected"|   
+|`dijkstraList(NodeData src, NodeData dest)`|Returns the shortest path as a list of nodes that represents the path.helper for shortest path|   
+|`bfs(int src)`| Breadth-first search (BFS), We use it for tsp algo. | 
+|`getTranspose(DirectedWeightedGraph graph)`|Compute the transpose of the graph.Helper for "IsConnected" algo.| 
 |`center()`|Finds the NodeData which minimizes the max distance to all the other nodes.|
 |`tsp(List<NodeData> cities)`|Computes a list of consecutive nodes which go over all the nodes in cities.| 
 |`save(String file)`|Saves this weighted (directed) graph to the given file name - in JSON format, in oreder to do that we used serializer| 
 |`load(String file)`|This method loads a graph to this graph algorithm, in oreder to do that we used serializer|   
 
- 
 
+## diagram of the project:
 ![Ex2](https://user-images.githubusercontent.com/79272744/145713175-c69f347b-c187-4c20-adfc-91cd1e0b90e9.png)
