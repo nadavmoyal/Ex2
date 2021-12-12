@@ -100,6 +100,9 @@ The second part of the project is to bulid a GUI visualization , that recive a g
 | --------------------------------|:--------------------------------------:| 
 |`NewPanel`,`NewFrame`|A classes that contains all the functions and calculations in order to display the graph and algorithms clearly on the screen.| 
 
+## GUI visualization -G1.json:
+<img width="941" alt="‏‏Ex2GUI" src="https://user-images.githubusercontent.com/93326335/145728834-d757b6f7-267b-4ec1-88c5-b63603baf70e.PNG">
+
 
 ## Diagram of the project: 
 (It is recommended to zoom in.)
