@@ -124,3 +124,7 @@ building graph - 1.76 sec
 10000V , 100000E :
 building graph - 4.44 sec
 ,shortpathdist - 0.31 sec
+
+100000V, 1000000E :
+building graph - 19 sec
+,shortpathdist - 0.35 sec
